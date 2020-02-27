@@ -17,12 +17,8 @@ public class PlayerController : MonoBehaviour
 
     float speedX = 0;
     float speedZ = 0;
+    float currentRotationX = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -35,7 +31,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Mathf.Abs(Input.GetAxis("Vertical")) != 0)
         {
-            speedZ = -Input.GetAxis("Vertical");
+            speedZ = Input.GetAxis("Vertical");
         }
         else
         {
@@ -69,12 +65,11 @@ public class PlayerController : MonoBehaviour
         float rotateHorizontal = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
         float rotateVertical = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
 
-        transform.localRotation = Quaternion.Euler(rotateHorizontal, 0f, 0f);
-        transform.RotateAround(pivotCamera.transform.position, Vector3.up, rotateHorizontal * sensitivity); 
-        
-        //use transform.Rotate(-transform.up * rotateHorizontal * sensitivity) instead if you dont want the camera to rotate around the player
+        currentRotationX -= rotateVertical;
+        currentRotationX = Mathf.Clamp(currentRotationX, -90f, 90f);
 
-        //transform.RotateAround(Vector3.zero, transform.right, rotateVertical * sensitivity);
+        pivotCamera.localRotation = Quaternion.Euler(currentRotationX, 0f, 0f);
+        transform.Rotate(Vector3.up * rotateHorizontal);
     }
 
 

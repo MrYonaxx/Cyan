@@ -344,7 +344,8 @@ MonoBehaviour:
   pivotCamera: {fileID: 632773546}
   camera: {fileID: 963194227}
   characterController: {fileID: 546454023}
-  speed: 2
+  speed: 5
+  sensitivity: 100
 --- !u!1 &632773545
 GameObject:
   m_ObjectHideFlags: 0
