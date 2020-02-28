@@ -5,13 +5,14 @@ using UnityEngine.Events;
 
 public class EventDetection : MonoBehaviour
 {
-
+    [SerializeField]
+    string tagName = "Player";
     [SerializeField]
     UnityEvent unityEvent;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.tag == tagName)
         {
             unityEvent.Invoke();
         }
