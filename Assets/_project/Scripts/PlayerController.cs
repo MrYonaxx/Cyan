@@ -13,11 +13,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float speed = 2;
     [SerializeField]
+    float gravity = 2;
+    [SerializeField]
     float sensitivity = 2;
 
     float speedX = 0;
     float speedZ = 0;
     float currentRotationX = 0;
+
 
 
     // Update is called once per frame
@@ -58,6 +61,7 @@ public class PlayerController : MonoBehaviour
 
         //rigidbodyCharacter.velocity = move * defaultSpeed * Time.deltaTime;
         characterController.Move(move * Time.deltaTime);
+        characterController.Move(new Vector3(0, gravity * Time.deltaTime, 0));
     }
 
     public void CheckPlayerInputCamera()
