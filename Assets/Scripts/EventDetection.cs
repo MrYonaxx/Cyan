@@ -9,7 +9,7 @@ public class EventDetection : MonoBehaviour
     [SerializeField]
     UnityEvent unityEvent;
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
