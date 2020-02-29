@@ -6,15 +6,70 @@ using UnityEngine.Events;
 public class EventDetection : MonoBehaviour
 {
     [SerializeField]
-    string tagName = "Player";
+    bool isEventVision = false;
+
     [SerializeField]
     UnityEvent unityEvent;
 
+    /*[SerializeField]
+    bool detectCustomTag = false;
+    [SerializeField]
+    string customTagName = "";*/
+
+    Transform player;
+
+    IEnumerator coroutineSight = null;
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == tagName)
+        Debug.Log(other.gameObject.name);
+        if(isEventVision == false)
         {
-            unityEvent.Invoke();
+            if (other.tag == "Player")
+            {
+                unityEvent.Invoke();
+            }
+        }
+        else
+        {
+            if (other.tag == "Vision")
+            {
+                player = other.transform.root;
+                if (coroutineSight != null)
+                    StopCoroutine(coroutineSight);
+                coroutineSight = CheckPlayerInSight();
+                StartCoroutine(coroutineSight);
+            }
+        }
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Vision")
+        {
+            if (coroutineSight != null)
+                StopCoroutine(coroutineSight);
+        }
+    }
+
+    private IEnumerator CheckPlayerInSight()
+    {
+        while (true)
+        {
+            // On check le Layer 0 voir si on touche le joueur, si on le touche, c'est que c'est bon.
+            int layerMask = 1 << 0;
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, player.transform.position - transform.position, out hit, 20, layerMask))
+            {
+                Debug.Log(hit.collider.name);
+                if (hit.collider.tag == "Player")
+                {
+                    unityEvent.Invoke();
+                    StopCoroutine(coroutineSight);
+                }
+            }
+            yield return null;
         }
     }
 
