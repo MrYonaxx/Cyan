@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\EventDetection.cs" />
     <Compile Include="Assets\_project\Scripts\PlayerController.cs" />
     <Compile Include="Assets\_project\Scripts\Scripts\EventDetection.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
